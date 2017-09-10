@@ -21,32 +21,4 @@ npm install -g bower-license-tracker
 
 
 ## Example of license JSON so produced by app
-{
-	"license": {
-		"path": "C:\\Workspace\\projects\\sample-project\\src\\client",
-		"packages": {
-			"angular-ui-router:0.3.1": {
-				"package name": "angular-ui-router",
-				"licenses": "MIT",
-				"download url": "No Repo/Homepage Url found",
-				"license file": "C:\\Workspace\\projects\\sample-project\\src\\client\\bower_components\\angular-ui-router\\LICENSE",
-				"publisher": "No Repo",
-				"description": "No Description Found",
-				"programming language": "JavaScript",
-				"package version": "0.3.1",
-				"publisher contact information": "No Repo/Homepage Url found"
-			},
-      "extended-datetimepicker:0.1.0": {
-        "package name": "extended-datetimepicker",
-        "licenses": "MIT",
-        "download url": "https://github.com/amittkSharma/extended-datetimepicker",
-        "license file": "C:\\Workspace\\projects\\sample-project\\src\\client\\bower_components\\extended-datetimepicker\\LICENSE",
-        "publisher": "amittkSharma",
-        "description": "Basic date time picker with ability to disable set of continuous or non-continuous date sets.",
-        "programming language": "JavaScript",
-        "package version": "0.1.0",
-        "publisher contact information": "https://github.com/amittkSharma/extended-datetimepicker"
-      }
-    }
-  }
-}
+![Alt text](https://github.com/amittkSharma/bower-license-tracker/images/packages_metainformation.png "bower packages meta information")
