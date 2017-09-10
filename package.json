@@ -1,6 +1,6 @@
 {
   "name": "bower-license-tracker",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "This module will track licenses of bower packages user in the application and list them as json.",
   "main": "src/index.js",
   "scripts": {
@@ -16,7 +16,11 @@
     "licenses",
     "license json creator",
     "copy license files",
-    "bower license tracker"
+    "bower license tracker",
+    "bower dependencies",
+    "bower package license files",
+    "bower package license json",
+    "bower license crawler"
   ],
   "author": "AMIT SHARMA",
   "license": "MIT",
