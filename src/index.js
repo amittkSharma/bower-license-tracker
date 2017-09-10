@@ -1,5 +1,3 @@
-'use strict'
-
 const argv = require('yargs').argv;
 const licenseFinder = require('./bower-license-tracker');
 const exceptions = require('./exceptions');
@@ -19,15 +17,15 @@ const exceptions = require('./exceptions');
 //   licenseFinder.findLicensesInfo(path, production)
 // }
 
-function startLicenseTracking(path) {
+function startLicenseTracking(path, isProduction) {
   console.info(`Paths to traverse:- ${path}`);
-  licenseFinder.findLicensesInfo(path, production)
+  licenseFinder.findLicensesInfo(path, isProduction)
 }
 
 module.exports = {
   run: function(arguments) {
     console.info('Start app creation process with arguments:  ', arguments);
-    startLicenseTracking(arguments);
+    startLicenseTracking(arguments, true);
   }
 }
 
