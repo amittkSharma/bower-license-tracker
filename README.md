@@ -21,4 +21,5 @@ npm install -g bower-license-tracker
 
 
 ## Example of license JSON so produced by app
-![Alt text](https://github.com/amittkSharma/bower-license-tracker/images/packages_metainformation.png "bower packages meta information")
+![Alt text](https://github.com/amittkSharma/bower-license-tracker/blob/master/images/packages_metainformation.png "bower packages meta information")
+
