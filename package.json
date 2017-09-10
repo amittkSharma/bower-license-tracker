@@ -1,0 +1,40 @@
+{
+  "name": "bower-license-tracker",
+  "version": "0.0.1",
+  "description": "This module will track licenses of bower packages user in the application and list them as json.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cls && node src/index.js"
+  },
+  "bin": {
+    "bower-tracker": "bin/bower-tracker.js"
+  },
+  "preferGlobal": true,
+  "keywords": [
+    "bower",
+    "licenses",
+    "license json creator",
+    "copy license files",
+    "bower license tracker"
+  ],
+  "author": "AMIT SHARMA",
+  "license": "MIT",
+  "dependencies": {
+    "bower-json": "~0.4.0",
+    "colors": "^1.1.2",
+    "copy-files": "^0.1.0",
+    "fs-extra": "^4.0.1",
+    "json2csv": "^3.11.1",
+    "npm-license": "~0.1.9",
+    "package-license": "~0.1.1",
+    "raptor-args": "~1.0.1",
+    "treeify": "~1.0.1",
+    "underscore": "~1.5.2",
+    "yargs": "^8.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amittkSharma/bower-license-tracker.git"
+  }
+}
