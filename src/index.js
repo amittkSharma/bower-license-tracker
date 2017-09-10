@@ -23,9 +23,9 @@ function startLicenseTracking(path, isProduction) {
 }
 
 module.exports = {
-  run: function(arguments) {
-    console.info('Start app creation process with arguments:  ', arguments);
-    startLicenseTracking(arguments, true);
+  run: function(path) {
+    console.info('Start app creation process with arguments:  ', path);
+    startLicenseTracking(path, true);
   }
 }
 
