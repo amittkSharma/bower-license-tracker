@@ -57,7 +57,7 @@ getExtendedJson = function(path, json) {
   return obj
 }
 
-writeJsonFile = function(path, result) {
+writeJsonFile = function(path, result, isExcelNeeded) {
   const p = new Promise((resolve, reject) => {
     const updatedResult = getExtendedJson(path, result)
     const destinationFolder = path + options.outputFolderName
@@ -67,10 +67,28 @@ writeJsonFile = function(path, result) {
         console.log('Error in writing json files::'.red + err);
         reject('error in writing the json file');
       }
+      if (isExcelNeeded) {
+        generateCsvFile(fullPath, updatedResult.license.packages)
+      }
       resolve({destinationFolder, updatedResult})
     });
   })
   return p
+}
+
+generateCsvFile = function (path, packages) {
+  const updatedPath = path.replace("json", "csv");
+  console.log('Start writing bower license csv'.yellow)
+  const fields = ['package name', 'licenses', 'download url', 'license file', 'publisher', 'description', 'programming language', 'package version', 'publisher contact information']
+
+  const updatedPackages =  Object.keys(packages).map(x => packages[x])
+
+  const csv = json2csv({ data:updatedPackages, fields: fields });
+
+  fs.writeFile(updatedPath, csv, function (err) {
+    if (err) throw err;
+    console.log('csv file is created at'.green, updatedPath);
+  });
 }
 
 copyLicenseFiles = function(destinationFolder, updatedResult) {
@@ -103,9 +121,11 @@ copyLicenseFiles = function(destinationFolder, updatedResult) {
 }
 
 module.exports = {
-  findLicensesInfo: function (path, production) {
+  findLicensesInfo: function (parameter) {
+    var path = parameter.path;
+    var isExcelNeeded = parameter.isExcel;
     licenseFinder(path).then(result => {
-      writeJsonFile(path, result).then(x => {
+      writeJsonFile(path, result, isExcelNeeded).then(x => {
         console.log('JSON file is created'.green)
         copyLicenseFiles(x.destinationFolder, x.updatedResult)
       })

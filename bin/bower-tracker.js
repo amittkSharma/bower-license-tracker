@@ -8,8 +8,10 @@ process.on('uncaughtException', function(err) {
 });
 
 var bowerTracker = require('../src/index.js');
-var parameter = process.argv.slice(2).join(' ');
+var path = process.argv[2];
+var isExcel = process.argv[3] ? process.argv[3] : false;
+var parameter = { path, isExcel }
 
-console.log(`path entered ${parameter}`)
+console.log(`path entered: ${parameter.path} and is excel needed: ${parameter.isExcel}`)
 
 bowerTracker.run(parameter);
