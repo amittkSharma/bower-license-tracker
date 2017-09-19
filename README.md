@@ -26,7 +26,7 @@ npm install -g bower-license-tracker
 ## Usage
 - Install the module using: npm install -g bower-license-tracker
 - On command line, execute the command: bower-tracker "Path to bower.json"
-- To generate CSV, execute the command: bower-tracker "Path to bower.json" true || false <em>default value is false </em>
+- To generate CSV, execute the command: bower-tracker "Path to bower.json" true || false (<em>default value is false </em>)
 
 
 
