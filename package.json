@@ -23,7 +23,9 @@
     "bower license crawler",
     "oss",
     "open source",
-    "license audit"
+    "license audit",
+    "bower license",
+    "bower license json"
   ],
   "author": "AMIT SHARMA",
   "license": "MIT",
