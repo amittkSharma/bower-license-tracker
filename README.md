@@ -1,4 +1,8 @@
 # bower-license-tracker
+
+[![](https://img.shields.io/npm/v/bower-license-tracker.svg)](https://www.npmjs.com/package/bower-license-tracker)
+[![](https://img.shields.io/npm/dm/bower-license-tracker.svg)](https://www.npmjs.com/package/bower-license-tracker)
+
 bower-license-tracker will track all the bower dependencies and their corrosponding licenses.
 The module will generate the JSON file with all meta information about bower packages and copy corrosponding license files in a directory named "bower_licenses". This new folder will be created under the same project directory.
 
