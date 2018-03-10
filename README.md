@@ -6,7 +6,7 @@
 bower-license-tracker will track all the bower dependencies and their corrosponding licenses.
 The module will generate the JSON file with all meta information about bower packages and copy corrosponding license files in a directory named "bower_licenses". This new folder will be created under the same project directory.
 
-#Features
+## Features
 <ul>
   <li>Creation of JSON file with meta information about licenses</li>
   <li>Copying license files</li>
