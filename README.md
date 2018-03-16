@@ -11,7 +11,7 @@ The module will generate the JSON file with all meta information about bower pac
   <li>Creation of JSON file with meta information about licenses</li>
   <li>Copying license files</li>
   <li>Creation of CSV file with meta information for Audit purpose</li>
-  <li>Find Immediate and transitive dependencies</li>
+  <li>Find immediate and transitive dependencies</li>
 </ul>
 
 
