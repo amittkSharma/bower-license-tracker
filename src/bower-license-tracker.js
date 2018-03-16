@@ -25,7 +25,7 @@ licenseFinder = function (path) {
   return p
 }
 
-getExtendedJson = function(path, json) {
+getExtendedJson = function(path, json, packages) {
   var updatedpackages = Object.keys(json).map(x => {
     var info = json[x]
     var repoName = info.repository ? info.repository.replace('git+', '') : _noInfoFound
@@ -39,6 +39,7 @@ getExtendedJson = function(path, json) {
       'programming language': 'JavaScript',
       'package version': info.version,
       'publisher contact information': info.email ? info.email : repoName,
+      'dependencyType': (packages.filter(pkg => pkg.label === x).length > 0) ? 'immediate' : 'transitive'
     }
   })
   var packages = {}
@@ -57,14 +58,14 @@ getExtendedJson = function(path, json) {
   return obj
 }
 
-writeJsonFile = function(path, result, isExcelNeeded) {
+writeJsonFile = function(path, result, packages, isExcelNeeded) {
   const p = new Promise((resolve, reject) => {
-    const updatedResult = getExtendedJson(path, result)
+    const updatedResult = getExtendedJson(path, result, packages)
     const destinationFolder = path + options.outputFolderName
     const fullPath = destinationFolder + options.outputFileName
     fs.outputJson(fullPath, updatedResult, (err) => {
       if (err) {
-        console.log('Error in writing json files::'.red + err);
+        console.log(`Error in writing json files: ${err}`.red);
         reject('error in writing the json file');
       }
       if (isExcelNeeded) {
@@ -87,7 +88,7 @@ generateCsvFile = function (path, packages) {
 
   fs.writeFile(updatedPath, csv, function (err) {
     if (err) throw err;
-    console.log('csv file is created at'.green, updatedPath);
+    console.log(`csv file is created at: ${updatedPath}`.green);
   });
 }
 
@@ -99,7 +100,7 @@ copyLicenseFiles = function(destinationFolder, updatedResult) {
   Object.keys(packages).forEach(x => {
     if (packages[x]['license file'] === _noFileFound) {
       numNoLicenseFiles++;
-      console.log('No license file is available for package:'.red, x);
+      console.log(`No license file is available for package: ${x}`.red);
     }
     else {
       numCopiedFiles++;
@@ -114,21 +115,56 @@ copyLicenseFiles = function(destinationFolder, updatedResult) {
   }, function (err) {
     if (!err) {
       console.log('All licenses files copied successfully.'.green);
-      console.log('Total licenses file copied successfully:'.green, numCopiedFiles);
-      console.log('Total licenses copied fail:'.green, numNoLicenseFiles);
+      console.log(`Total licenses file copied successfully: ${numCopiedFiles} and failed: ${numNoLicenseFiles}`.green);
     }
   })
+}
+
+getDependencies = function(pDependencies, pDevDependencies) {
+  const dependencies =  Object.keys(pDependencies).map(x => {
+    const label = pDependencies[x].indexOf('^') >= 0 ?  pDependencies[x].slice(1) : pDependencies[x]
+    return {
+      name: x,
+      version: pDependencies[x],
+      label: `${x}@${label}`,
+      type: 'dependency'
+    }
+  })
+  const devDependencies =  Object.keys(pDevDependencies).map(x => {
+    const label = pDevDependencies[x].indexOf('^') >= 0 ?  pDevDependencies[x].slice(1) : pDevDependencies[x]
+    return {
+      name: x,
+      version: pDevDependencies[x],
+      label: `${x}@${label}`,
+      type: 'devDependency'
+    }
+  })
+  return dependencies.concat(devDependencies)
+}
+
+readModuleBowerJson = function(path) {
+  const allPackages =  new Promise((resolve,reject) => {
+    const packageData = fs.readJsonSync(`${path}/bower.json`, {throws: false})
+     if (packageData != undefined) {
+      const allDependencies = getDependencies(packageData.dependencies, packageData.devDependencies)
+      resolve(allDependencies)
+    }
+    reject({error: 'Not able to read the package file'})
+  })
+  return allPackages
 }
 
 module.exports = {
   findLicensesInfo: function (parameter) {
     var path = parameter.path;
     var isExcelNeeded = parameter.isExcel;
-    licenseFinder(path).then(result => {
-      writeJsonFile(path, result, isExcelNeeded).then(x => {
-        console.log('JSON file is created'.green)
-        copyLicenseFiles(x.destinationFolder, x.updatedResult)
+    readModuleBowerJson(path).then(packages => {
+      licenseFinder(path).then(result => {
+        writeJsonFile(path, result, packages, isExcelNeeded).then(x => {
+          console.log('JSON file is created'.green)
+          copyLicenseFiles(x.destinationFolder, x.updatedResult)
+        })
       })
-    })
+   })
   }
 }
